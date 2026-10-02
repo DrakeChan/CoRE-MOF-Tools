@@ -3,8 +3,8 @@
   "files": [
     {
       "path": ".agents/skills/coremof-release-curation/SKILL.md",
-      "bytes": 11283,
-      "sha256": "2d87446f31e989dcf92534f3d024889d4570bb4cc8aac3969e88650acb175977"
+      "bytes": 11689,
+      "sha256": "5d6475cf07b530e5f40fce883295408b0a27aee04f4d3a5edf9aa3ee91baf3db"
     },
     {
       "path": ".agents/skills/coremof-release-curation/references/dataset-splitting-ml-benchmark.md",
@@ -448,13 +448,13 @@
     },
     {
       "path": "README.md",
-      "bytes": 30926,
-      "sha256": "c3f1e9fde6da709951c28ead8187e337b42d7b9ff82eb19333ebbb02f9345f50"
+      "bytes": 31079,
+      "sha256": "d2a37c6895530d9346c2bb954ba223bc6f5be94d9055a649b914770afaa47b5d"
     },
     {
       "path": "README_DATABASE_ACCESS.md",
-      "bytes": 7809,
-      "sha256": "394c38d4fdc7617e4bc9cf0167d5d042c9b026d08c9fa9b3185ad81b83f5a94e"
+      "bytes": 8452,
+      "sha256": "dfd8922773e6859ba912d4cf6800790412efbcb79986198ad0c852f69528cea4"
     },
     {
       "path": "README_DATASET_SPLITTING.md",
@@ -533,8 +533,8 @@
     },
     {
       "path": "docs/source/database_access.rst",
-      "bytes": 6115,
-      "sha256": "ec5111a535519beb2419bb6cda44074ebc03ac0e1488e0f7e464e2715cbb0709"
+      "bytes": 6757,
+      "sha256": "78df667f2916c123e28b5a82e3eaee9f3d5ecaad10709614f8b17c1db3a37386"
     },
     {
       "path": "docs/source/features.rst",
@@ -1153,7 +1153,7 @@
     }
   ],
   "file_count": 230,
-  "bytes": 3444662,
+  "bytes": 3446506,
   "errors": [],
   "publication_authorized": false,
   "scope": "Local code surface only. Not a software or data licence decision."

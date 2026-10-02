@@ -14,8 +14,17 @@ example `2013[Cu][nan]3[ASR]5`. The fields are publication year, metals or
 metalloids, topology, bonded-framework dimensionality, curation variant and
 distinguishing serial number. `0000` denotes an unknown publication year and
 `nan` means that no unambiguous named topology was assigned. The dimension is
-not pore-channel dimensionality. Established published IDs are persistent,
-so their descriptive tokens need not change when newer metadata is available.
+not pore-channel dimensionality. Established IDs are persistent by default;
+newer metadata alone does not trigger renaming. A previously unavailable
+`[nan]` topology may be updated only with explicit user approval and a
+validated, unambiguous named CrystalNets SingleNodes result. Allocate the
+destination serial from the maintained registry for its publication year,
+elements, topology, dimension and variant, checking that the complete ID is
+collision-free. Update current identifier-bearing release artifacts
+consistently. Parsing and formatting do not validate topology evidence,
+allocate serials or perform these approved updates. Frozen benchmark
+translations must preserve structure membership and assignments; updated
+names alone do not authorize a new split or scientific recalculation.
 
 ```python
 from CoREMOF import parse_core_id

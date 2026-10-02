@@ -16,7 +16,16 @@ Release structure names follow
 ``2013[Cu][nan]3[ASR]5`` has framework dimensionality 3 and serial number 5.
 The element segment includes metals or metalloids. Unknown publication years
 use ``0000`` and no unambiguous named topology is represented by ``nan``.
-Established published IDs remain persistent even when newer metadata differs.
+Established IDs remain persistent by default; newer metadata alone does not
+trigger renaming. A previously unavailable ``[nan]`` topology may be updated
+only with explicit user approval and a validated, unambiguous named
+CrystalNets SingleNodes result. Allocate the destination serial from the
+maintained registry for its publication year, elements, topology, dimension
+and variant, checking that the complete ID is collision-free. Update current
+identifier-bearing release artifacts consistently. Retired aliases and
+old-to-current crosswalks remain private. Frozen benchmark translations must
+preserve structure membership and assignments; updated names alone do not
+authorize a new split or scientific recalculation.
 
 Use ``CoREMOF.parse_core_id`` and ``CoREMOF.format_core_id`` for exact parsing
 and formatting. They do not allocate serials, infer source/access rights,

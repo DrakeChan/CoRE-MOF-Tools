@@ -21,11 +21,17 @@ Use the database name **CoRE-MOF-COD**. Release CoRE IDs have the form
 `YYYY[elements][topology]dimension[variant]serial`; use `CoREMOF.parse_core_id`
 and obtain source/access categories from metadata, never from the filename.
 CoRE IDs are distinct from chemical MOFid-v1/v2 strings. Do not reinterpret
-descriptive name tokens as grouping evidence or rename established IDs when
-metadata changes. Read the CoRE-ID section of the database access guide when
-editing identifier-bearing exports. Private historical crosswalks stay outside
-releases. When replaying frozen experiments, validate and preserve translated
-membership rather than rerunning a sampler with newly sorted identifiers.
+descriptive name tokens as grouping evidence. Established IDs are persistent
+by default; metadata changes alone do not trigger renaming. An unavailable
+`[nan]` topology may be updated only with explicit user approval, a validated
+unambiguous named CrystalNets SingleNodes result and a collision-free serial
+allocated from the maintained destination-name registry. Read the CoRE-ID
+section of the database access guide before updating all current
+identifier-bearing artifacts consistently. Parsing and formatting do not
+authorize or execute these updates. Retired aliases and historical crosswalks
+stay private and outside releases. When replaying frozen experiments,
+validate and preserve translated membership and assignments rather than
+rerunning a sampler with newly sorted identifiers.
 
 ## Choose the requested workflow
 

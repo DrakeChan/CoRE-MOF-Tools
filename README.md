@@ -42,11 +42,18 @@ Packaging does not by itself authorize publication. See the
 [database access guide](README_DATABASE_ACCESS.md) for the separate sources,
 licensing requirements and package layouts.
 
+Current release preparation does not establish confirmed version-bound
+public/reviewer access, independent recipient retrieval/load checks, complete
+computational-artifact access or production MOFid profile admission. These
+remain explicit prepublication conditions. The development API and archived
+grouping evidence do not clear those conditions or replace source-specific
+rights. CoRE-ID updates do not alter frozen labels, targets, groups or splits.
+
 [![Documentation](https://img.shields.io/badge/docs-Read_the_Docs-blue?logo=readthedocs)](https://core-mof-tools.readthedocs.io/)
 [![PyPI](https://img.shields.io/pypi/v/CoREMOF-tools?logo=pypi)](https://pypi.org/project/CoREMOF-tools/)
 [![Python](https://img.shields.io/badge/Python-3.9--3.11-blue.svg?logo=python)](https://python.org/downloads/)
 [![License](https://img.shields.io/github/license/Chung-Research-Group/CoRE-MOF-Tools)](https://github.com/Chung-Research-Group/CoRE-MOF-Tools/blob/main/LICENSE)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15055758.svg)](https://img.shields.io/badge/docs-Read_the_Docs-blue?logo=readthedocs0)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15055758.svg)](https://doi.org/10.5281/zenodo.15055758)
 
 The hosted documentation and PyPI badges refer to earlier published versions.
 For the `0.4.0.dev0` API, use the guides in the matching audited source
@@ -158,7 +165,7 @@ new API. No database release is downloaded by `pip install .`.
 
 The verified fork API checkpoint is
 `c66796b77b0e86775f43b9021c6bcb3ebd93abfa` at
-[DrakeChan/CoRE-MOF-Tools](https://img.shields.io/badge/docs-Read_the_Docs-blue?logo=readthedocs1).
+[DrakeChan/CoRE-MOF-Tools](https://github.com/DrakeChan/CoRE-MOF-Tools).
 See the source installation guide for a pinned clone command and the distinction
 between that API checkpoint and any later documentation follow-up. A wheel
 installs the API; the human guides, example notebook and portable agent skill
@@ -225,7 +232,7 @@ Some features require additional software:
 | Zeo++ pore geometry | `conda install -c conda-forge zeopp-lsmo` |
 | CSD structure download | Licensed CSD software and CSD Python API |
 | Reading checker results and selecting CR/NCR | No external checker software required |
-| MOFid v1/v2 | [MOFid installation](https://img.shields.io/badge/docs-Read_the_Docs-blue?logo=readthedocs2) and Open Babel |
+| MOFid v1/v2 | [MOFid installation](docs/source/installation.rst) and Open Babel |
 | Crystal topology | Julia/CrystalNets through `juliacall`; the first call may install Julia packages |
 | Heat-capacity prediction | Separately obtained, verified ensemble model assets; not included in the code-only clone |
 
@@ -585,18 +592,18 @@ stability_result = stability("my_mof.cif")
 | Dataset classification and splitting | `CoREMOF.dataset`, `CoREMOF.splitters` | `CoREMOFDataset`, `split_release()` |
 | Feature/target joining | `CoREMOF.targets` | `TargetSource`, `AliasRegistry`, `merge_targets()` |
 
-Full guides and API documentation are available on [Read the Docs](https://img.shields.io/badge/docs-Read_the_Docs-blue?logo=readthedocs3). Executable notebooks and CIF examples are in [`examples/`](https://img.shields.io/badge/docs-Read_the_Docs-blue?logo=readthedocs4).
+Full guides and API documentation are available on [Read the Docs](https://core-mof-tools.readthedocs.io/). Executable notebooks and CIF examples are in [`examples/`](examples/).
 
 ## Citation
 
 If you use the database or toolkit, cite:
 
-> Zhao G., Brabson L., Chheda S., Huang J., Kim H., Liu K., et al. “CoRE MOF DB: a curated experimental metal–organic framework database with machine-learned properties for integrated material-process screening.” *Matter* 8 (2025), 102140. [https://img.shields.io/badge/docs-Read_the_Docs-blue?logo=readthedocs5)
+> Zhao G., Brabson L., Chheda S., Huang J., Kim H., Liu K., et al. “CoRE MOF DB: a curated experimental metal–organic framework database with machine-learned properties for integrated material-process screening.” *Matter* 8 (2025), 102140. [DOI: 10.1016/j.matt.2025.102140](https://doi.org/10.1016/j.matt.2025.102140).
 
-Also cite the underlying method used in your workflow (for example Zeo++, PACMAN-charge, MOFClassifier, MOFChecker, MOSAEC, CrystalNets, or the relevant stability model). A method-by-method list is provided in the [documentation](https://img.shields.io/badge/docs-Read_the_Docs-blue?logo=readthedocs6).
+Also cite the underlying method used in your workflow (for example Zeo++, PACMAN-charge, MOFClassifier, MOFChecker, MOSAEC, CrystalNets, or the relevant stability model). A method-by-method list is provided in the [documentation](https://core-mof-tools.readthedocs.io/).
 
 ## Support and development
 
-- Report reproducible bugs through [GitHub Issues](https://img.shields.io/badge/docs-Read_the_Docs-blue?logo=readthedocs7).
+- Report reproducible bugs through [GitHub Issues](https://github.com/Chung-Research-Group/CoRE-MOF-Tools/issues).
 - Include `coremof doctor` output, Python version, operating system, a minimal code example, and—when shareable—the failing CIF.
-- Developed by [Guobin Zhao](https://img.shields.io/badge/docs-Read_the_Docs-blue?logo=readthedocs8) at MTAP, Pusan National University.
+- Developed by Guobin Zhao at MTAP, Pusan National University.
