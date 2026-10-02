@@ -8,6 +8,24 @@ unmodified CSD CIFs have been built as separate local review packages for subseq
 handoff. Both CSD categories stay out of GitHub, GitHub Release assets and
 Zenodo.
 
+Publication destinations
+------------------------
+
+The public project branch is
+https://github.com/Chung-Research-Group/CoRE-MOF-Tools/tree/2026-core-mof-cod.
+After advisor approval, the planned workflow folder is ``2026-CoRE-MOF-COD``
+in https://github.com/Chung-Research-Group/reproducible-workflows. A separate
+public database repository is planned under Chung-Research-Group; its exact
+URL is not yet assigned. The advisor-review repositories remain private.
+The new database repository, workflow contribution and Zenodo deposit are
+not claimed completed.
+
+The current branch does not replace historically recorded fit implementations,
+environments or checkpoints. Authorized reviewer access, exact computational
+assets, recipient replay, source permissions and production MOFid admission
+remain separate requirements. SI-CIF deposition requires asset-level rights
+clearance. CSD CIF payloads and private mappings stay out of public deposits.
+
 CoRE IDs
 --------
 

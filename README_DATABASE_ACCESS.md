@@ -7,6 +7,25 @@ Zenodo deposit, not this Python source tree. All CSD CIFs stay out
 of GitHub, GitHub Release assets and Zenodo. Modified and unmodified CSD CIFs
 have been built as separate local packages for review and subsequent CCDC handoff.
 
+## Publication destinations
+
+The public project software branch is
+<https://github.com/Chung-Research-Group/CoRE-MOF-Tools/tree/2026-core-mof-cod>.
+After advisor approval, the plotting/workflow contribution is planned as
+`2026-CoRE-MOF-COD` in
+<https://github.com/Chung-Research-Group/reproducible-workflows>. Database
+catalogues/access documents are planned for a new public repository under
+**Chung-Research-Group**, whose exact URL is not yet assigned. The new
+database repository, workflow contribution and Zenodo deposit are not
+claimed completed. The advisor-review repositories remain private.
+
+The current branch is not the source/environment/checkpoint archive for
+every completed fit. Exact computational evidence, authorized reviewer
+access, source permissions, recipient replay and production MOFid admission
+remain separate publication conditions. SI-CIF deposition requires asset-level
+rights clearance. Both CSD CIF categories and private identifier crosswalks
+stay outside public GitHub/Zenodo payloads.
+
 ## CoRE IDs
 
 Current records use `YYYY[elements][topology]dimension[variant]serial`, for

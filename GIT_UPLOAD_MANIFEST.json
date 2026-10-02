@@ -453,8 +453,8 @@
     },
     {
       "path": "README_DATABASE_ACCESS.md",
-      "bytes": 8452,
-      "sha256": "dfd8922773e6859ba912d4cf6800790412efbcb79986198ad0c852f69528cea4"
+      "bytes": 9473,
+      "sha256": "808c3631f6a990ffbce54e3ad5c7cdfb16e0352fde369d792648a3709e18f383"
     },
     {
       "path": "README_DATASET_SPLITTING.md",
@@ -533,8 +533,8 @@
     },
     {
       "path": "docs/source/database_access.rst",
-      "bytes": 6757,
-      "sha256": "78df667f2916c123e28b5a82e3eaee9f3d5ecaad10709614f8b17c1db3a37386"
+      "bytes": 7705,
+      "sha256": "baa6a8f6003e44cfef52f645a30df265c36837f3fa03b208ee2c4c3a8bddcde5"
     },
     {
       "path": "docs/source/features.rst",
@@ -1153,7 +1153,7 @@
     }
   ],
   "file_count": 230,
-  "bytes": 3446506,
+  "bytes": 3448475,
   "errors": [],
   "publication_authorized": false,
   "scope": "Local code surface only. Not a software or data licence decision."
