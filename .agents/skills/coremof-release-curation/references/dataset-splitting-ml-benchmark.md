@@ -1,28 +1,35 @@
-# Portable ML benchmark workflow selection
+# Portable benchmark workflow selection
 
-Read the parent `SKILL.md` for the shared scientific and transfer boundaries.
-Choose the guide matching the requested experiment, not the newest directory
-name or a previous chat's counts.
+Read only the route needed for the requested experiment:
 
-- For a new target-first workflow, read
-  [target_first_benchmark.rst](../../../../docs/source/target_first_benchmark.rst)
-  and use `examples/build_target_first_benchmark.py`. Required finite targets
-  determine eligibility before cohort selection. Grouping and checker-label
-  purity still use the complete release, including target-missing structures.
-  The example writes the source/endpoint/eligibility/assignment bindings.
-- For the historical target-independent experiment, read repository-root
-  `ML_BENCHMARK_HANDOFF.md`. This is the dated command, data-layout,
-  deferred-target and restricted-transfer guide, not the current target-first
-  protocol. Keep its frozen assignments and recorded settings unchanged.
-- For an already transferred experiment, its exact manifest and receiver
-  prompt define which workflow and metadata view apply. Neither guide grants
-  permission to overwrite earlier results or start training on a new dataset.
+- **New target-complete benchmark:** use
+  [the target-first guide](../../../../docs/source/target_first_benchmark.rst)
+  and `examples/build_target_first_benchmark.py`. Attach declared targets,
+  determine finite eligibility, then build cohorts. Full-release grouping and
+  label purity include target-missing rows. The receipt binds target sources,
+  endpoint definitions, eligibility, groups and assignments. Model-input
+  certification is a separate step.
+- **Frozen paper experiment:** use
+  [the replay guide](../../../../docs/source/frozen_assignment_replay.rst)
+  and `examples/replay_common_input_benchmark.py`. Verify the supplied archive
+  and its assignment receipt. Preserve the recorded checker view, eligibility,
+  groups, strata and assignments. A newer dataset is not a replay.
+- **General target-independent splitting:** use
+  [the splitting handbook](../../../../README_DATASET_SPLITTING.md) and
+  [grouped recipes](../../../../examples/grouped_workflow_recipes.md).
+  Explicit later attachment preserves the original split digest. A filtered
+  `missing="drop"` view never refills, rebalances or resplits.
 
-For combined target construction and the audited as-of-cutoff coverage, also
-read repository-root `COMBINED_TARGET_DATASET.md` as the historical baseline.
-`examples/extend_collected_targets.py` can extend a compatible accepted target
-snapshot with saved collector evidence, preserving values and scientific nulls
-and writing a new private candidate. This is not a new split or public release.
-Treat completion-only counts as source contributions, never total availability.
-Do not substitute an original-host curation runbook or infer production state
-on the receiving machine.
+The [benchmark handoff](../../../../ML_BENCHMARK_HANDOFF.md) describes numerical
+requirements and evaluation conventions. The selected handoff's verified
+manifest controls exact identities, settings and counts. Preserve earlier
+experiments separately, without putting superseded handoff narratives into a
+current release guide.
+
+For accepted target aggregation, use
+[combined target construction](../../../../COMBINED_TARGET_DATASET.md).
+The builder/auditor require an independently pinned identity contract and input
+hashes. `examples/extend_collected_targets.py` can extend a compatible target
+snapshot using saved evidence while preserving accepted values and scientific
+nulls. This is not a new split or a public-release authorization. Coverage comes
+from the selected receipt, never completion-only counts or an old guide.

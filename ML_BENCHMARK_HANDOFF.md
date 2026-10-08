@@ -1,203 +1,132 @@
-# CoRE-MOF-COD GPU benchmark handoff
+# CoRE-MOF-COD benchmark handoff
 
-This guide is the minimal transfer-and-run contract for the target-independent
-strict five-checker benchmark. Use the exact source commit and restricted data
-digests supplied by the project coordinator; do not select similarly named
-files by timestamp.
+Choose between reproducing frozen assignments and constructing a new benchmark.
+The two workflows are not interchangeable. Use the dataset, checker-evidence
+view, software identity and input hashes named by the supplied handoff.
 
-## 1. Freeze the benchmark inputs
+## Reproduce the paper's frozen adsorption benchmark
 
-Strict computation-ready (CR) means that MOFClassifier, original MOFChecker,
-Chen–Manz, MOSAEC, and SETC-GAT are all available and PASS. Strict
-non-computation-ready (NCR) means that the same five results are all available
-and FAIL. A missing, failed, timed-out, or otherwise `NOT_AVAILABLE` checker
-result makes the row UNCHECKED and never becomes NCR.
+The `coremof_cod_common_input_equal_size_20260912_v1` experiment has twelve
+shared assignments: NCR-pool fractions `q=0, 0.5, 1` and seeds `912–915`.
+Each case contains **train/val/test: 3,737/466/468** structures. The same
+pure-CR test is shared across all cases. `q` is the fraction of the eligible
+NCR pool, not the NCR percentage in the training set. Validation includes
+CR and NCR when `q>0`.
 
-For `group_criteria="priority_main"`, `priority_main` is the conflict-aware
-explanatory hierarchy in which exact available 264-value depth-5 revised
-autocorrelation (RAC5) groups seed components, then exact MOFid-v2 and MOFid-v1
-groups attach unresolved rows. A weaker group spanning multiple stronger
-components records `PARENT_METHOD_CONFLICT` and does not merge them; missing
-rows remain singletons. It excludes Zeo++, CrystalNets, source ID, common name,
-CIF hash, StructureMatcher, and optional reference relations.
+The frozen design combines `RT` and `M2T` with the full-release leakage guard.
+Related-structure groups cannot cross partitions, but every structure retains
+its own targets and statistical weight. `RT` requires exact equality of all
+264 finite RAC5 descriptors and the complete successful CrystalNets
+fingerprint. `M2T` requires the complete canonical MOFid-v2 identifier and that
+independent CrystalNets fingerprint. Missing evidence never matches another
+missing value. Full criterion definitions are in the
+[splitting handbook](README_DATASET_SPLITTING.md).
 
-The separate `main_union` leakage guard is built over the complete release
-before filtering. It takes transitive components over exact full CIF SHA-256,
-database-namespaced source siblings, and available release-authorized RAC5,
-MOFid-v2, and MOFid-v1 edges; it is not a parent or identity claim. The
-benchmark adds the selected criterion edges and takes connected-component
-closure. Each resulting effective leakage block is indivisible across train,
-validation, and test.
-
-The checksum-bound CoRE-MOF-COD integration run has:
-
-| Pool | Raw strict rows | Label-pure eligible rows | Excluded with a mixed-label block |
-|---|---:|---:|---:|
-| CR | 6,294 | 4,693 | 1,601 |
-| NCR | 2,299 | 1,727 | 572 |
-
-The raw pools cannot be selected in full without crossing effective leakage
-blocks. Therefore the CoRE-MOF-COD sensitivity ladder must explicitly request:
-
-```text
-complete_release_label_pure_effective_blocks
-```
-
-That policy excludes every strict CR or NCR row whose complete-release
-effective block contains another checker label. It is a declared sensitivity
-cohort, not a relabeling of excluded rows. Omitting the option fails closed.
-Every real run recomputes these counts from its checksum-bound release.
-
-After this policy, `full_cr` uses eligible `C=4,693` and `M=1,727`.
-For NCR-pool fraction `q`, it selects
-`round_half_up(q*M)` NCR and `C-round_half_up(q*M)` CR structures. Thus
-`q=1` contains all 1,727 eligible NCR structures and 2,966 eligible CR
-structures; it is not a 100%-NCR cohort.
-
-## 2. Install the exact source and numerical environment
-
-Clone or update this repository, check out the exact commit recorded in the
-handoff manifest, and install the benchmark extra:
+Use the [frozen-assignment replay](docs/source/frozen_assignment_replay.rst):
 
 ```bash
-git fetch origin
-git checkout COMMIT_SHA_FROM_HANDOFF_MANIFEST
-python -m pip install -e ".[benchmark]"
+python examples/replay_common_input_benchmark.py \
+  --handoff-archive /private/approved_workflow_handoff.tar.gz \
+  --archive-sha256 VERIFIED_ARCHIVE_SHA256 \
+  --output /private/new-assignment-replay
+```
+
+This validates and copies the recorded assignments. It does not resample,
+recalculate features or train models. A translated CoRE-ID export has its own
+file and assignment hashes. Preserve its verified relationship to the frozen
+membership instead of expecting the original bytes to retain their hashes.
+New release metadata and newly available targets do not replace the experiment's
+bound checker evidence, input certification or assignments.
+
+## Build a new target-complete benchmark
+
+Load target-free core metadata, explicitly merge the requested targets and
+select finite-target eligibility before cohort construction. The grouping graph
+and checker-label purity still use the complete release, including rows lacking
+targets. Target values do not influence grouping, diversity or partitioning.
+Model graph, grid and descriptor eligibility requires separate certification.
+
+Use [the target-first guide](docs/source/target_first_benchmark.rst) and its
+executable example:
+
+```bash
+python examples/build_target_first_benchmark.py /private/validated_release \
+  --target-config /private/targets.json \
+  --require-target ch4_loading \
+  --require-target h2_loading \
+  --require-target henry_selectivity \
+  --output-directory /private/new-benchmark
+```
+
+Replace endpoint names with those in the verified target configuration. The
+example selects `RT` and `M2T`, the explicit
+`complete_release_label_pure_effective_blocks` policy, representative diversity,
+`q=0, 0.5, 1`, seeds `912–915`, and `transition_balanced` partitioning. It writes
+eligibility, grouping, target-source and assignment bindings in
+`workflow_receipt.json`. These settings do not guarantee the paper's population
+sizes on another release, and they do not change legacy package defaults.
+
+Strict CR means all five selected checkers are available and PASS. Strict NCR
+means all five are available and FAIL. An unavailable result is a non-vote, not
+FAIL, and produces UNCHECKED. A complete mixed set of PASS/FAIL votes is
+AMBIGUOUS. The full-release label-purity policy excludes mixed-label groups
+before sampling and reports raw, excluded and eligible counts separately.
+
+If the eligible CR pool has size `C` and NCR pool size `M`, the constant-size
+cohort uses `round_half_up(q*M)` NCR structures and the remaining `C` rows as
+CR. Thus `q=1` means all eligible NCR, not a pure-NCR cohort. Infeasible pool
+sizes or whole-group constraints fail explicitly rather than silently capping,
+duplicating or splitting a related group. All generated assignments remain
+exploratory, with `official_split=false`.
+
+The target-independent builder remains available for applications that do not
+select on target availability. Its API and deferred attachment examples are in
+the splitting handbook and [grouped recipes](examples/grouped_workflow_recipes.md).
+Neither route overrides a supplied frozen experiment.
+
+## Install and verify the selected software
+
+Use the exact source revision or wheel hash recorded with the handoff or release
+catalogue. A shared version string alone does not identify an installed build.
+Use Python 3.9–3.11. Representative diversity requires the pinned benchmark
+extra:
+
+```bash
+python -m pip install "/path/to/verified/CoRE-MOF-Tools[benchmark]"
 coremof doctor
 ```
 
-Use Python 3.9, 3.10, or 3.11. The representative diversity backend requires
-exactly NumPy 1.26.4, scikit-learn 1.5.0, SciPy 1.13.1, joblib 1.5.3, and
-threadpoolctl 3.6.0. Require the doctor report to contain
-`[OK] Representative benchmark`; missing packages or version drift fail
-explicitly.
-Numerical libraries run with a one-thread limit and their non-path runtime
-identity is recorded. The resulting assignment digest is frozen, but
-cross-architecture bit identity is not guaranteed; compare receipts rather
-than assuming it.
+The required numerical stack is NumPy 1.26.4, scikit-learn 1.5.0, SciPy 1.13.1,
+joblib 1.5.3 and threadpoolctl 3.6.0. Missing packages and version drift fail
+explicitly. Numerical libraries use a one-thread limit, with runtime identity
+recorded. Cross-architecture bit identity is not assumed. Compare receipts.
 
-The repository also carries the project workflow at
-`.agents/skills/coremof-release-curation/`. Codex scans that repository-scoped
-location automatically when launched anywhere inside the clone; invoke it as
-`$coremof-release-curation`. If a newly pulled update is not visible, restart
-Codex. See the [official Codex skill documentation](https://developers.openai.com/codex/build-skills).
+Verify the archive checksum before use, then the ledgers named by its receiver
+instructions. A compact metadata-only release can load with
+`verify_cif_files=False`, but cannot support graph models without separately
+authorized CIFs. Never combine similarly named releases by timestamp.
 
-The compact handoff's release root is loader-complete for
-`verify_cif_files=False`: it contains `dataset_info.json`, the checksum-bound
-metadata, parents, feature tables, and CIF manifest, but intentionally omits
-the CIF bytes. Do not pass `--verify-cifs` with that compact root. If modelling
-requires structure files, obtain the separate restricted full archive and
-verify its own receipt and SHA-256 before use. A flattened share archive is not
-automatically a loadable release root; never mix inherited base cohort and CoRE-MOF-COD files.
+## Targets, evaluation and transfer
 
-## 3. Build assignments without targets
+For explicit optional-supplement attachment, use
+`dataset.attach_target_supplement(root, expected_sha256=trusted_manifest_hash)`.
+See [target supplements](docs/source/target_supplements.rst) and
+[combined target construction](COMBINED_TARGET_DATASET.md). Default loading
+does not discover or attach targets. Frozen attachment preserves assignments.
+`missing="drop"` is only a derived view and never refills or resplits.
 
-```bash
-coremof benchmark-cr-ncr /secure/path/to/CoRE-MOF-COD \
-  --group-criteria priority_main \
-  --cohort-eligibility complete_release_label_pure_effective_blocks \
-  --ncr-pool-fractions 0.0 0.2 0.4 0.6 0.8 1.0 \
-  --seeds 42 43 44 45 46 \
-  --fractions 0.8 0.1 0.1 \
-  --output-directory /secure/coremof-ml-work/benchmark_outputs
-```
+Report CH4/H2 uptake in mol/kg-framework and CO2/N2 Henry selectivity as
+dimensionless `S`, with the frozen experiment's `log10(1+S)` primary evaluation
+and raw scale secondary. Preserve zero and null values. Average seed-level
+metrics and report sample standard deviation and actual seed counts. Do not
+pool repeated test predictions, substitute screening scores, fill incomplete
+cases with another experiment or confuse standardized outputs with evaluated
+predictions. A full-CR prediction view containing training-related structures
+is diagnostic, not an independent test.
 
-Equivalent Python:
-
-```python
-from CoREMOF.dataset import CoREMOFDataset
-
-dataset = CoREMOFDataset.from_release(
-    "/secure/path/to/CoRE-MOF-COD"
-)
-classified = dataset.classify("5checker")
-suite = classified.build_cr_ncr_benchmark(
-    ncr_pool_fractions=(0.0, 0.2, 0.4, 0.6, 0.8, 1.0),
-    seeds=(42, 43, 44, 45, 46),
-    total_size="full_cr",
-    train=0.8,
-    val=0.1,
-    test=0.1,
-    group_criteria="priority_main",
-    cohort_eligibility="complete_release_label_pure_effective_blocks",
-    diversity="representative",
-    test_policy="fixed_pure_cr",
-    include_full_cr_diagnostic=True,
-)
-suite.write("/secure/coremof-ml-work/benchmark_outputs")
-```
-
-The common `fixed_pure_cr` test uses whole label-pure effective blocks and is
-shared across every ratio and seed. The writer records raw counts, eligible
-counts, exclusions, requested and achieved partition counts, assignment
-digests, and `official_split=false`. No audited official assignment manifest
-currently exists. The supplementary `full_cr_diagnostic` instead covers the
-complete raw strict-CR pool, including rows excluded by the label-pure
-sensitivity policy; it is not the independent test.
-
-## 4. Attach targets only after assignment
-
-Do not expose adsorption values, availability, or target-derived features to
-cohort construction, diversity balancing, or partition assignment. First
-verify the frozen suite receipt and assignment digest; then attach the
-checksum-bound target table:
-
-For the validated cutoff `2026-09-04T05:43:23Z`, use the combined target
-snapshot built by `examples/build_combined_target_dataset.py` and independently
-checked by `examples/audit_combined_target_dataset.py`. The earlier
-current-finished handoff counts (2,335 CH4, 3,744 H2, and 14,167 Widom) describe
-only newly completed calculation evidence; they are not total available target
-coverage. The fill-only union with accepted historical values contains 28,979,
-28,974, and 28,944 finite unique IDs, respectively, across the 42,574-ID
-published release. See `COMBINED_TARGET_DATASET.md` and the public-safe aggregate
-JSON for the complete count contract.
-
-`HISTORICAL_SCIENTIFIC_NULL` means a frozen source record is `EXISTING` with
-`explicit_null=true` and a nonempty diagnostic. It stays eligible but
-unavailable and native-null, and it cannot be filled because only source keys
-marked `MISSING` accept current results. The current snapshot contains one such
-historical Widom row with diagnostic `ZERO_DENOMINATOR`, which is why finite
-Widom coverage is 28,944 rather than the raw `EXISTING` count plus new-success
-count.
-
-```bash
-coremof attach-targets /secure/path/to/CoRE-MOF-COD \
-  --manifest /secure/coremof-ml-work/benchmark_outputs/coremof_cr_ncr_benchmark/runs/seed42_q0p0.csv \
-  --receipt /secure/coremof-ml-work/benchmark_outputs/coremof_cr_ncr_benchmark/receipt.json \
-  --config /secure/path/to/targets.json \
-  --missing keep \
-  --output-directory /secure/coremof-ml-work/attached_targets
-```
-
-`keep` preserves every assigned ID and represents unavailable targets as
-null. `drop` creates only a derived filtered view; it never refills,
-rebalances, or resplits. Target hashes do not change the frozen assignment
-receipt, and attached outputs retain `official_split=false`. The command
-attaches one run CSV at a time; loop over `runs/*.csv` for persisted suites, or
-use `suite.attach_targets(...)` in Python before serialization to attach all 30
-runs together. `membership_manifest.csv` is an accounting table with repeated
-IDs and is not an attachment manifest.
-
-## 5. Restricted-data transfer boundary
-
-This Git update adds only source code, public documentation, dependency
-metadata, and the repository-scoped workflow skill. The hash and transfer
-manifests belong to the separately transferred restricted archive, not the Git
-repository. The repository still contains legacy tracked SI archives and
-therefore is not a sanitized data-free clone; do not add release tables, CIF archives,
-structure-resolved target data, checker findings, or derived benchmark
-manifests to GitHub, Git LFS, or an unapproved public-cloud service.
-
-Transfer restricted release and target archives separately through an approved
-institutional channel, SFTP, or SSH-based `rsync`, and verify their supplied
-SHA-256 ledgers before extraction and use. Confirm the recipient's project
-access and institutional CSD/CCDC entitlement first. CSD CIFs and
-structure-resolved CSD-derived outputs remain licence-gated unless written
-permission covers them; SI assets remain rights-pending asset by asset; COD
-material retains its applicable licence and attribution requirements; and
-MOSAEC/CCDC-derived findings require their own redistribution clearance.
-
-Treat newly generated benchmark and target-attached outputs as restricted until
-their row-level redistribution rights are reviewed. A modelling source filter
-does not itself sanitize the complete-release leakage graph or grant
-redistribution permission.
+This repository supplies code and documentation, not third-party checker code
+or structure-resolved benchmark data. Obtain inputs through the approved
+distribution route, applying source-specific permissions and recipient access
+requirements. CSD CIFs and other licence-gated payloads do not belong in a
+public code repository. A valid checksum does not grant redistribution rights.
+See [database access](README_DATABASE_ACCESS.md) and [upload guide](UPLOAD_GUIDE.md).

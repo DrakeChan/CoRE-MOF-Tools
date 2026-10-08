@@ -64,7 +64,8 @@ not part of the public release.
 
 | Resource | Structure records | Distribution route |
 | --- | ---: | --- |
-| Full metadata/JSON archive, without CIF bytes | 42,574 | Zenodo |
+| Target-free core metadata/JSON archive, without CIF bytes or targets | 42,574 | Zenodo |
+| Optional simulation-target supplement, explicitly attached | 42,574 ID rows, unavailable observations remain null | Zenodo |
 | COD CIF archive | 19,598 | Zenodo |
 | SI CIF archive | 5,727 | Zenodo |
 | Modified CSD CIF package | 13,001 | Local review, then CCDC |
@@ -78,8 +79,8 @@ package has its own membership manifest, checksum ledger and access/licensing
 document. It must not be presented as a
 COD/SI overlay or a complete loader-ready release.
 
-The local archives are `CoRE-MOF-COD_CSD_modified_cifs_20261001.zip` and
-`CoRE-MOF-COD_CSD_unmodified_cifs_20261001.zip`. Their private membership records
+The local archives are `CoRE-MOF-COD_CSD_modified_cifs_20261001_topology_v2.zip` and
+`CoRE-MOF-COD_CSD_unmodified_cifs_20261001_topology_v2.zip`. Their private membership records
 are `manifests/ccdc_package_manifest.json` and
 `manifests/classification_manifest.csv` inside each archive. The public catalogue
 records aggregate package counts and hashes, not structure-resolved CSD membership.
@@ -119,6 +120,18 @@ read-only summary and optional verification against a trusted metadata-ledger
 hash. Loading metadata does not verify absent CIF bytes, execute a checker,
 change targets or promote a staged release. `verify_cif_files=True` requires
 all CIFs in the loaded manifest.
+
+Default core metadata loading exposes no simulation responses and never locates
+or attaches target files automatically. Use `dataset.attach_target_supplement`
+with the explicit optional package and its independently received manifest
+checksum. The method checks compatible core hashes and exact ID coverage,
+preserves zero/null observations, and leaves groups and assignments unchanged.
+The three response values are attached, while statuses and calculation details
+remain in the optional supplement. See
+[target_supplements.rst](docs/source/target_supplements.rst) and
+`examples/attach_target_supplement.py`. Both historical complete-release and
+source-projection loaders hide legacy response columns unless explicitly called
+with `include_legacy_targets=True`. Physical source hashes remain unchanged.
 
 ## Source-only data
 
