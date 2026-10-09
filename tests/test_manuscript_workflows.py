@@ -150,7 +150,8 @@ class ManuscriptWorkflowTests(unittest.TestCase):
                       (landing.parent / "index.rst").read_text(encoding="utf-8"))
 
     def test_portable_skill_relative_links_resolve(self):
-        skill = ROOT / ".agents" / "skills" / "coremof-release-curation"
+        skill = ROOT / ".agents" / "skills" / "coremof-dataset-use"
+        self.assertTrue((skill / "SKILL.md").is_file())
         for path in sorted(skill.rglob("*.md")):
             text = path.read_text(encoding="utf-8")
             for target in re.findall(r"\]\(([^\s)]+)\)", text):

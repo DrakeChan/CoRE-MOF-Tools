@@ -2,24 +2,9 @@
   "status": "PASS_CODE_SURFACE",
   "files": [
     {
-      "path": ".agents/skills/coremof-release-curation/SKILL.md",
-      "bytes": 3811,
-      "sha256": "aee113dc1d189f2240b6f088141b2b121e6f09f7cbeb7be5a44a1e84c998db52"
-    },
-    {
-      "path": ".agents/skills/coremof-release-curation/references/dataset-splitting-ml-benchmark.md",
-      "bytes": 2053,
-      "sha256": "8d9e9a12ce72865998de7f3f848d7269d7c9a900757b28fe32dd5a25d00bcc21"
-    },
-    {
-      "path": ".agents/skills/coremof-release-curation/references/missing-results.md",
-      "bytes": 2370,
-      "sha256": "3e1eb87704fcc6f449d59e89857bb25f7a59217a5c627326ffbd0ee3cdbb836e"
-    },
-    {
-      "path": ".agents/skills/coremof-release-curation/references/target-separation.md",
-      "bytes": 2137,
-      "sha256": "7951ae851628c2853bac4b73bc4a75d31ed90b4be8e76ac9b1fe4a1465f80e86"
+      "path": ".agents/skills/coremof-dataset-use/SKILL.md",
+      "bytes": 2913,
+      "sha256": "b373ed1ab91b122e5afa8c240fc348e601a396ccb5d584f67b67e3161f0a2bfc"
     },
     {
       "path": ".gitattributes",
@@ -448,8 +433,8 @@
     },
     {
       "path": "MANIFEST.in",
-      "bytes": 1417,
-      "sha256": "362c4282da99b794400aa1fcefab3b18ea8ffc95c82602e33fe11ffed37383d0"
+      "bytes": 1529,
+      "sha256": "50bfceea0dc8e8a9beb8906b2f3780999b7622fcd4815df41f93763e8624e1d0"
     },
     {
       "path": "ML_BENCHMARK_HANDOFF.md",
@@ -478,8 +463,8 @@
     },
     {
       "path": "UPLOAD_GUIDE.md",
-      "bytes": 6098,
-      "sha256": "11c2b912f328b14b502174f7af3ee0454774bbf752fa02df105e0898a8bf850a"
+      "bytes": 6800,
+      "sha256": "92e1e24e19e3cafb04402610a172e7b086bf78bcbe418a507efbd4e421d80030"
     },
     {
       "path": "docs/Makefile",
@@ -568,8 +553,8 @@
     },
     {
       "path": "docs/source/installation.rst",
-      "bytes": 6017,
-      "sha256": "7cad0501b2f0b66f4e2ab24e4b0c5cbb206ee2a62cb9ba7db081eacfe626499b"
+      "bytes": 6076,
+      "sha256": "3484658b3012697e197c484eae5ddd5cdd4be251fe7727f5846bc645392288c9"
     },
     {
       "path": "docs/source/quickstart.rst",
@@ -908,8 +893,8 @@
     },
     {
       "path": "tests/test_distributions.py",
-      "bytes": 5399,
-      "sha256": "5a332db957fe3f7e8b42b61d718a8524c1132d275021b2bbaaf5b1a5ae21e2c7"
+      "bytes": 5855,
+      "sha256": "ddb875b9961e6c6c832594908e445d5d447e33395ba4aaaf8f173e78a8cc6b72"
     },
     {
       "path": "tests/test_handbook.py",
@@ -948,8 +933,8 @@
     },
     {
       "path": "tests/test_manuscript_workflows.py",
-      "bytes": 7730,
-      "sha256": "3d98290728f889716321a4a49ffedd2aa5fb9491977993649373d4a56b915a7a"
+      "bytes": 7781,
+      "sha256": "ed6e353c8892c5cdba992d36c29148b43374d1a28b9073011444a65c817c197e"
     },
     {
       "path": "tests/test_mofclassifier_isolation.py",
@@ -1113,8 +1098,8 @@
     },
     {
       "path": "tests/test_upload_verification.py",
-      "bytes": 4613,
-      "sha256": "69773b30102bf02ab5919fdd3462dc0153208c85487914367d4a11a0d90097b3"
+      "bytes": 6209,
+      "sha256": "722e44a2851a466a863f8d92c71621db4169afe88a6124d39436466423b38d1d"
     },
     {
       "path": "tests/test_zeopp.py",
@@ -1123,12 +1108,12 @@
     },
     {
       "path": "verify_upload.py",
-      "bytes": 6305,
-      "sha256": "2e60068573e645551ada8fbb331b09c6e6ac7e213d617cd3f43ae18bb5e2b173"
+      "bytes": 7588,
+      "sha256": "b9ed56a2d4abdfe5ed7ef136cdf1115bd73cef0a3ae5b07a5f387452132be432"
     }
   ],
-  "file_count": 225,
-  "bytes": 3193582,
+  "file_count": 222,
+  "bytes": 3190383,
   "errors": [],
   "publication_authorized": false,
   "scope": "Local code surface only. Not a software or data licence decision."
