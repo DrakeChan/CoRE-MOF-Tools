@@ -26,6 +26,23 @@ remain separate publication conditions. SI-CIF deposition requires asset-level
 rights clearance. Both CSD CIF categories and private identifier crosswalks
 stay outside public GitHub/Zenodo payloads.
 
+## Journal-review access and archived versions
+
+For the Digital Discovery manuscript, editors and anonymous reviewers need
+tested access to the permitted code and data supporting the reported results.
+Private GitHub collaborator access alone does not meet that requirement.
+Use an editor-mediated, version-bound read-only package or preview, preserving
+source restrictions. Never commit reviewer tokens or confidential access links.
+
+The software version used for each completed calculation or fit is distinct
+from a later documentation commit or a development branch. Custom code needs
+a persistent archive at acceptance, and the data/code DOIs and applicable
+software versions must be recorded before publication. Keep unassigned archive
+fields blank; a public source branch is not itself a persistent data deposit.
+The database and reproducible-workflow access guides describe their respective
+materials. This documentation does not publish data, grant licences or certify
+an untested reviewer-access route.
+
 ## CoRE IDs
 
 Current records use `YYYY[elements][topology]dimension[variant]serial`, for
